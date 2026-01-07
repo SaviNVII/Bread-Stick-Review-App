@@ -1,2 +1,2 @@
-User can post images of breadsticks with descriptions.
-The images will have a section for reviews.
+User can post reviews of breadsticks with images.
+Each post will have a section for comments maybe.
