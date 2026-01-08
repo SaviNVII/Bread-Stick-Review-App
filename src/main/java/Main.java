@@ -6,7 +6,6 @@ import java.io.IOException;
 
 public class Main {
     public static GUI gui = new GUI();
-    public static String savePath = "AccountData/";
     public static Account account = new Account();
     public static void main(String[] args) {
     }
