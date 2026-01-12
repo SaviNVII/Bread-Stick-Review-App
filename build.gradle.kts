@@ -14,6 +14,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     implementation("com.google.code.gson:gson:2.13.2")
+    implementation("com.amazonaws:aws-java-sdk-dynamodb:1.12.X")
 }
 
 tasks.test {

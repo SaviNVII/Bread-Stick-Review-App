@@ -7,16 +7,6 @@ public class Account {
 
     Account() {}
 
-    public void startSession(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
-
-    public void terminateSession() {
-        username = null;
-        password = null;
-    }
-
     public void savePost(String post) {
         posts.add(post);
     }

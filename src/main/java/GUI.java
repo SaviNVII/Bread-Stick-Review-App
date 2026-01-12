@@ -39,13 +39,7 @@ public class GUI {
         JButton signUpSignUpButton = new JButton("Sign Up");
         signUpPanel.add(signUpSignUpButton);
         signUpSignUpButton.addActionListener(_ -> {
-            String username = signUpUsernameField.getText();
-            String password = signUpPasswordField.getText();
-            try {
-                Main.signUp(username, password);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            System.out.println("Sign Up");
         });
 
         JButton loginButton = new JButton("Login");
