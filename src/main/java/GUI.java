@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class GUI {
     public int screenWidth = 600;
@@ -33,13 +34,24 @@ public class GUI {
         JLabel signUpPasswordLabel = new JLabel("Password:");
         signUpPanel.add(signUpPasswordLabel);
 
-        JTextField signUpPasswordField = new JTextField();
+        JPasswordField signUpPasswordField = new JPasswordField();
         signUpPanel.add(signUpPasswordField);
 
         JButton signUpSignUpButton = new JButton("Sign Up");
         signUpPanel.add(signUpSignUpButton);
         signUpSignUpButton.addActionListener(_ -> {
             System.out.println("Sign Up");
+            String username = signUpUsernameField.getText();
+            String password = new String(signUpPasswordField.getPassword());
+            if (username.isEmpty() || password.isEmpty()) {
+                displayMessage("Username/Password can not be empty.");
+            } else {
+                try {
+                    Main.signUp(username, password);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
         });
 
         JButton loginButton = new JButton("Login");
