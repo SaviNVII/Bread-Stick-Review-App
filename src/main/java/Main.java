@@ -9,6 +9,7 @@ public class Main {
 
     public static void signUp(String username, String password) throws Exception {
         String hashedPassword = Hasher.hashPassword(password);
-        String jsonInputString = "";
+        String jsonInputString = "{\"username\": \"" + username + "\", \"password\": \"" + hashedPassword + "\"}";
+        System.out.println(jsonInputString);
     }
 }
