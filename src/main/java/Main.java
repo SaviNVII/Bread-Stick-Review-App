@@ -1,16 +1,54 @@
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.io.*;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 public class Main {
     public static GUI gui = new GUI();
-    public static Account account = new Account();
 
     public static String url = "https://7pivrgulp3.execute-api.us-east-2.amazonaws.com/production/accounts";
 
     public static void main(String[] args) {
+        try {
+            List<Account> test = getAccounts();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static List<Account> getAccounts() throws IOException, InterruptedException {
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url)).build();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println(response.body());
+
+        if (response.statusCode() == 200) {
+            Gson gson = new Gson();
+
+            Type listType = new TypeToken<List<Account>>() {}.getType();
+            List<Account> accountList = gson.fromJson(response.body(), listType);
+
+            // Output the results
+            for (Account account : accountList) {
+                System.out.println(account);
+            }
+
+            return accountList;
+        } else {
+            System.out.println("GET request failed: " + response.statusCode());
+            return null;
+        }
     }
 
     public static void signUp(String username, String password) throws Exception {

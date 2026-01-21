@@ -1,14 +1,27 @@
-import java.util.ArrayList;
 
 public class Account {
-    String username;
-    String password;
-    public ArrayList<String> posts = new ArrayList<>();
+    private final String id;
+    private final String password;
+    private final String username;
 
-    Account() {}
-
-    public void savePost(String post) {
-        posts.add(post);
+    Account(String id, String password, String username) {
+        this.id = id;
+        this.password = password;
+        this.username = username;
     }
 
+    public String getId() {
+        return id;
+    }
+    public String getPassword() {
+        return password;
+    }
+    public String getUsername() {
+        return username;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" + "username='" + username + '\'' + ", id=" + id + '}';
+    }
 }
