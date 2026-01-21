@@ -31,7 +31,6 @@ public class Main {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url)).build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        System.out.println(response.body());
 
         if (response.statusCode() == 200) {
             Gson gson = new Gson();
@@ -49,6 +48,15 @@ public class Main {
             System.out.println("GET request failed: " + response.statusCode());
             return null;
         }
+    }
+
+    public static boolean checkUsername(String username) throws IOException, InterruptedException {
+        List<Account> accounts = getAccounts();
+
+        for(int i = 0; i < accounts.size(); i++) {
+
+        }
+        return false;//FIXME
     }
 
     public static void signUp(String username, String password) throws Exception {
