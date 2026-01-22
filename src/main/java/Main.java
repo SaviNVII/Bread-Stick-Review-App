@@ -55,6 +55,10 @@ public class Main {
         return false;
     }
 
+    public static void login(String username, String password) {
+        
+    }
+
     public static void signUp(String username, String password) throws Exception {
         if (checkUsername(username)) {
             gui.displayMessage("Username is Taken");

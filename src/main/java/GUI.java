@@ -13,6 +13,7 @@ public class GUI {
     JLabel messageLabel = new JLabel();
 
     GUI() {
+        //region Main
         JFrame frame = new JFrame();
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
@@ -21,6 +22,7 @@ public class GUI {
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.LINE_AXIS));
         mainPanel.add(buttonPanel);
 
+        //region Sign Up
         JFrame signUpFrame = new JFrame();
         JPanel signUpPanel = new JPanel();
         signUpPanel.setLayout(new BoxLayout(signUpPanel, BoxLayout.PAGE_AXIS));
@@ -54,8 +56,39 @@ public class GUI {
             }
         });
 
+        signUpFrame.add(signUpPanel);
+        signUpFrame.setSize(secondaryScreenWidth, secondaryScreenHeight);
+        signUpFrame.setResizable(false);
+        //endregion
+
+        //region Login
+        JFrame loginFrame = new JFrame();
+        JPanel loginPanel = new JPanel();
+        loginPanel.setLayout(new BoxLayout(loginPanel, BoxLayout.PAGE_AXIS));
+
+        JLabel loginUsernameLabel = new JLabel("Username:");
+        loginPanel.add(loginUsernameLabel);
+
+        JTextField loginUsernameField = new JTextField();
+        loginPanel.add(loginUsernameField);
+
+        JLabel loginPasswordLabel = new JLabel("Password:");
+        loginPanel.add(loginPasswordLabel);
+
+        JPasswordField loginPasswordField = new JPasswordField();
+        loginPanel.add(loginPasswordField);
+
+        JButton loginLoginButton = new JButton("Login");
+        loginPanel.add(loginLoginButton);
+
+        loginFrame.add(loginPanel);
+        loginFrame.setSize(secondaryScreenWidth, secondaryScreenHeight);
+        loginFrame.setResizable(false);
+        //endregion
+
         JButton loginButton = new JButton("Login");
         buttonPanel.add(loginButton);
+        loginButton.addActionListener(_ -> loginFrame.setVisible(true));
 
         JButton logoutButton = new JButton("Logout");
         buttonPanel.add(logoutButton);
@@ -72,14 +105,11 @@ public class GUI {
 
         mainPanel.add(messageLabel);
 
-        signUpFrame.add(signUpPanel);
-        signUpFrame.setSize(secondaryScreenWidth, secondaryScreenHeight);
-        signUpFrame.setResizable(false);
-
         frame.add(mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(screenWidth, screenHeight);
         frame.setVisible(true);
+        //endregion
     }
 
     public void displayMessage(String message) {
