@@ -11,6 +11,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Objects;
 
 public class Main {
     public static GUI gui = new GUI();
@@ -18,12 +19,6 @@ public class Main {
     public static String url = "https://7pivrgulp3.execute-api.us-east-2.amazonaws.com/production/accounts";
 
     public static void main(String[] args) {
-        try {
-            List<Account> test = getAccounts();
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
     }
 
     public static List<Account> getAccounts() throws IOException, InterruptedException {
@@ -53,13 +48,18 @@ public class Main {
     public static boolean checkUsername(String username) throws IOException, InterruptedException {
         List<Account> accounts = getAccounts();
 
-        for(int i = 0; i < accounts.size(); i++) {
-
+        for(int i = 0; i < Objects.requireNonNull(accounts).size(); i++) {
+            Account accountAtIndex = accounts.get(i);
+            if (username.equals(accountAtIndex.getUsername())) return true;
         }
-        return false;//FIXME
+        return false;
     }
 
     public static void signUp(String username, String password) throws Exception {
+        if (checkUsername(username)) {
+            gui.displayMessage("Username is Taken");
+            return;
+        }
         String hashedPassword = Hasher.hashPassword(password);
         String jsonInputString = "{\"username\": \"" + username + "\", \"password\": \"" + hashedPassword + "\"}";
         System.out.println(jsonInputString);

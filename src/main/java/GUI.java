@@ -57,6 +57,9 @@ public class GUI {
         JButton loginButton = new JButton("Login");
         buttonPanel.add(loginButton);
 
+        JButton logoutButton = new JButton("Logout");
+        buttonPanel.add(logoutButton);
+
         JButton signUpButton = new JButton("Sign Up");
         buttonPanel.add(signUpButton);
         signUpButton.addActionListener(_ -> signUpFrame.setVisible(true));
