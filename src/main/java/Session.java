@@ -9,12 +9,7 @@ public class Session {
     }
 
     public static void terminateSession() {
-        if (currentUsername == null && currentPassword == null) {
-            currentUsername = null;
-            currentPassword = null;
-            System.out.println("Session terminated");
-        }else {
-            System.out.println("No session is active");
-        }
+        currentUsername = null;
+        currentPassword = null;
     }
 }

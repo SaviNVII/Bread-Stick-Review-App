@@ -31,14 +31,7 @@ public class Main {
             Gson gson = new Gson();
 
             Type listType = new TypeToken<List<Account>>() {}.getType();
-            List<Account> accountList = gson.fromJson(response.body(), listType);
-
-            // Output the results
-            for (Account account : accountList) {
-                System.out.println(account);
-            }
-
-            return accountList;
+            return gson.fromJson(response.body(), listType);
         } else {
             System.out.println("GET request failed: " + response.statusCode());
             return null;
@@ -55,8 +48,35 @@ public class Main {
         return false;
     }
 
-    public static void login(String username, String password) {
-        
+    public static boolean checkPassword(String username, String password) throws Exception {
+        List<Account> accounts = getAccounts();
+
+        for(int i = 0; i < Objects.requireNonNull(accounts).size(); i++) {
+            Account accountAtIndex = accounts.get(i);
+            if (username.equals(accountAtIndex.getUsername())
+            && Hasher.verifyPassword(password, accountAtIndex.getPassword())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void logout() {
+        if (Session.currentUsername == null || Session.currentPassword == null) {
+            gui.displayMessage("No session is active");
+        } else {
+            gui.displayMessage("Session terminated");
+        }
+        Session.terminateSession();
+    }
+
+    public static void login(String username, String password) throws Exception {
+        if (checkPassword(username, password)) {
+            Session.startSession(username, password);
+            gui.displayMessage("Logged in as " + username);
+        } else {
+            gui.displayMessage("Invalid login information");
+        }
     }
 
     public static void signUp(String username, String password) throws Exception {

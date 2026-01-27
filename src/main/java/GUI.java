@@ -80,6 +80,19 @@ public class GUI {
 
         JButton loginLoginButton = new JButton("Login");
         loginPanel.add(loginLoginButton);
+        loginLoginButton.addActionListener(_ -> {
+            String username = loginUsernameField.getText();
+            String password = new String(loginPasswordField.getPassword());
+            if (username.isEmpty() || password.isEmpty()) {
+                displayMessage("Username/Password can not be empty.");
+            } else {
+                try {
+                    Main.login(username, password);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        });
 
         loginFrame.add(loginPanel);
         loginFrame.setSize(secondaryScreenWidth, secondaryScreenHeight);
@@ -92,6 +105,7 @@ public class GUI {
 
         JButton logoutButton = new JButton("Logout");
         buttonPanel.add(logoutButton);
+        logoutButton.addActionListener(_ -> Main.logout());
 
         JButton signUpButton = new JButton("Sign Up");
         buttonPanel.add(signUpButton);
