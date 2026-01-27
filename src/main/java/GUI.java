@@ -117,6 +117,12 @@ public class GUI {
         JButton newPostButton = new JButton("New Post");
         buttonPanel.add(newPostButton);
 
+        JButton editPostButton = new JButton("Edit Post");
+        buttonPanel.add(editPostButton);
+
+        JButton deletePostButton = new JButton("Delete Post");
+        buttonPanel.add(deletePostButton);
+
         mainPanel.add(messageLabel);
 
         frame.add(mainPanel);
