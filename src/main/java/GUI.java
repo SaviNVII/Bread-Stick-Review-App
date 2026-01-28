@@ -99,6 +99,43 @@ public class GUI {
         loginFrame.setResizable(false);
         //endregion
 
+        //region New Post
+            JFrame newPostFrame = new JFrame();
+            JPanel newPostPanel = new JPanel();
+            newPostPanel.setLayout(new BoxLayout(newPostPanel, BoxLayout.PAGE_AXIS));
+
+            JLabel newPostNameLabel = new JLabel("Title");
+            newPostPanel.add(newPostNameLabel);
+
+            JTextField newPostNameField = new JTextField();
+            newPostPanel.add(newPostNameField);
+
+            JLabel newPostBodyLabel = new JLabel("Body");
+            newPostPanel.add(newPostBodyLabel);
+
+            JTextField newPostBodyField = new JTextField();
+            newPostPanel.add(newPostBodyField);
+
+            JButton newPostNewPostButton = new JButton("Post");
+            newPostPanel.add(newPostNewPostButton);
+
+            newPostFrame.add(newPostPanel);
+            newPostFrame.setSize(secondaryScreenWidth, secondaryScreenHeight);
+            newPostFrame.setResizable(false);
+        //endregion
+
+        //region Edit Post
+            JFrame editPostFrame = new JFrame();
+            JPanel editPostPanel = new JPanel();
+            editPostPanel.setLayout(new BoxLayout(editPostPanel, BoxLayout.PAGE_AXIS));
+
+            JLabel editPostNameLabel = new JLabel("Title");
+            editPostPanel.add(editPostNameLabel);
+
+            JTextField editPostNameField = new JTextField();
+            editPostPanel.add(editPostNameField);
+        //endregion
+
         JButton loginButton = new JButton("Login");
         buttonPanel.add(loginButton);
         loginButton.addActionListener(_ -> loginFrame.setVisible(true));
@@ -116,6 +153,7 @@ public class GUI {
 
         JButton newPostButton = new JButton("New Post");
         buttonPanel.add(newPostButton);
+        newPostButton.addActionListener(_ -> newPostFrame.setVisible(true));
 
         JButton editPostButton = new JButton("Edit Post");
         buttonPanel.add(editPostButton);
