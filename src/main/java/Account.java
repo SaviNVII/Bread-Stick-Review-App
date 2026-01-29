@@ -1,5 +1,6 @@
 
 public class Account {
+    //Account class to store JSON data
     private final String id;
     private final String password;
     private final String username;

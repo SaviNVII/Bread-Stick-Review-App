@@ -21,6 +21,12 @@ public class Main {
     public static void main(String[] args) {
     }
 
+    /**
+     * Makes a get request to the account database for a list of the accounts.
+     * @return  A list of the accounts.
+     * @throws IOException If there is an input/output error.
+     * @throws InterruptedException If the request is interrupted.
+     */
     public static List<Account> getAccounts() throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
@@ -38,6 +44,14 @@ public class Main {
         }
     }
 
+    /**
+     * Checks for a username in the database.
+     * Calls {@link Main#getAccounts()} to get a list of accounts to check from.
+     * @param username The username to check.
+     * @return True if the username is in the database, false if it is not.
+     * @throws IOException If there is an error with input/output.
+     * @throws InterruptedException If the request called is interrupted.
+     */
     public static boolean checkUsername(String username) throws IOException, InterruptedException {
         List<Account> accounts = getAccounts();
 
@@ -48,6 +62,15 @@ public class Main {
         return false;
     }
 
+    /**
+     * Checks the password under a given username and compares it to a given password.
+     * Calls {@link Main#getAccounts()} to get a list of accounts to check from.
+     * Calls {@link Hasher#verifyPassword(String, String)} to check if the password is correct.
+     * @param username The username to check.
+     * @param password The password to compare.
+     * @return True if the passwords match, false if they don't.
+     * @throws Exception If an error occurs in the process.
+     */
     public static boolean checkPassword(String username, String password) throws Exception {
         List<Account> accounts = getAccounts();
 
@@ -61,6 +84,10 @@ public class Main {
         return false;
     }
 
+    /**
+     * Terminates the current session if one is active.
+     * Calls {@link Session#terminateSession()} to terminate the session.
+     */
     public static void logout() {
         if (Session.currentUsername == null || Session.currentPassword == null) {
             gui.displayMessage("No session is active");
@@ -70,6 +97,13 @@ public class Main {
         Session.terminateSession();
     }
 
+    /**
+     * Calls {@link Main#checkPassword(String, String)}
+     * and starts a new session if it returns true, does nothing if it returns false.
+     * @param username The username to use.
+     * @param password The password to use.
+     * @throws Exception If an error occurs in the process.
+     */
     public static void login(String username, String password) throws Exception {
         if (checkPassword(username, password)) {
             Session.startSession(username, password);
@@ -79,6 +113,14 @@ public class Main {
         }
     }
 
+    /**
+     * Calls{@link Main#checkUsername(String)} to check if the username is taken.
+     * Calls {@link GUI#displayMessage(String)} checkUsername returns true, and then stops.
+     * Makes a post request with the given username and password to the accounts database.
+     * @param username The username to use.
+     * @param password The password to use.
+     * @throws Exception If an error occurs in the process.
+     */
     public static void signUp(String username, String password) throws Exception {
         if (checkUsername(username)) {
             gui.displayMessage("Username is Taken");
