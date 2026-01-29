@@ -134,6 +134,32 @@ public class GUI {
 
             JTextField editPostNameField = new JTextField();
             editPostPanel.add(editPostNameField);
+
+            JLabel editPostBodyLabel = new JLabel("Body");
+            editPostPanel.add(editPostBodyLabel);
+
+            JTextField editPostBodyField = new JTextField();
+            editPostPanel.add(editPostBodyField);
+
+            editPostFrame.add(editPostPanel);
+            editPostFrame.setSize(secondaryScreenWidth, secondaryScreenHeight);
+            editPostFrame.setResizable(false);
+        //endregion
+
+        //region Delete Post
+            JFrame deletePostFrame = new JFrame();
+            JPanel deletePostPanel = new JPanel();
+            deletePostPanel.setLayout(new BoxLayout(deletePostPanel, BoxLayout.PAGE_AXIS));
+
+            JLabel deletePostNameLabel = new JLabel("Title");
+            deletePostPanel.add(deletePostNameLabel);
+
+            JTextField deletePostNameField = new JTextField();
+            deletePostPanel.add(deletePostNameField);
+
+            deletePostFrame.add(deletePostPanel);
+            deletePostFrame.setSize(secondaryScreenWidth, secondaryScreenHeight);
+            deletePostFrame.setResizable(false);
         //endregion
 
         JButton loginButton = new JButton("Login");
@@ -157,9 +183,11 @@ public class GUI {
 
         JButton editPostButton = new JButton("Edit Post");
         buttonPanel.add(editPostButton);
+        editPostButton.addActionListener(_ -> editPostFrame.setVisible(true));
 
         JButton deletePostButton = new JButton("Delete Post");
         buttonPanel.add(deletePostButton);
+        deletePostButton.addActionListener(_ -> deletePostFrame.setVisible(true));
 
         mainPanel.add(messageLabel);
 
