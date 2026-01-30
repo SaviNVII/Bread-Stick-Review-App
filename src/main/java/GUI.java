@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
-import java.util.Arrays;
 
 public class GUI {
     public int screenWidth = 600;
@@ -100,66 +98,72 @@ public class GUI {
         //endregion
 
         //region New Post
-            JFrame newPostFrame = new JFrame();
-            JPanel newPostPanel = new JPanel();
-            newPostPanel.setLayout(new BoxLayout(newPostPanel, BoxLayout.PAGE_AXIS));
+        JFrame newPostFrame = new JFrame();
+        JPanel newPostPanel = new JPanel();
+        newPostPanel.setLayout(new BoxLayout(newPostPanel, BoxLayout.PAGE_AXIS));
 
-            JLabel newPostNameLabel = new JLabel("Title");
-            newPostPanel.add(newPostNameLabel);
+        JLabel newPostNameLabel = new JLabel("Title");
+        newPostPanel.add(newPostNameLabel);
 
-            JTextField newPostNameField = new JTextField();
-            newPostPanel.add(newPostNameField);
+        JTextField newPostNameField = new JTextField();
+        newPostPanel.add(newPostNameField);
 
-            JLabel newPostBodyLabel = new JLabel("Body");
-            newPostPanel.add(newPostBodyLabel);
+        JLabel newPostBodyLabel = new JLabel("Body");
+        newPostPanel.add(newPostBodyLabel);
 
-            JTextField newPostBodyField = new JTextField();
-            newPostPanel.add(newPostBodyField);
+        JTextField newPostBodyField = new JTextField();
+        newPostPanel.add(newPostBodyField);
 
-            JButton newPostNewPostButton = new JButton("Post");
-            newPostPanel.add(newPostNewPostButton);
+        JButton newPostNewPostButton = new JButton("Post");
+        newPostPanel.add(newPostNewPostButton);
 
-            newPostFrame.add(newPostPanel);
-            newPostFrame.setSize(secondaryScreenWidth, secondaryScreenHeight);
-            newPostFrame.setResizable(false);
+        newPostFrame.add(newPostPanel);
+        newPostFrame.setSize(secondaryScreenWidth, secondaryScreenHeight);
+        newPostFrame.setResizable(false);
         //endregion
 
         //region Edit Post
-            JFrame editPostFrame = new JFrame();
-            JPanel editPostPanel = new JPanel();
-            editPostPanel.setLayout(new BoxLayout(editPostPanel, BoxLayout.PAGE_AXIS));
+        JFrame editPostFrame = new JFrame();
+        JPanel editPostPanel = new JPanel();
+        editPostPanel.setLayout(new BoxLayout(editPostPanel, BoxLayout.PAGE_AXIS));
 
-            JLabel editPostNameLabel = new JLabel("Title");
-            editPostPanel.add(editPostNameLabel);
+        JLabel editPostNameLabel = new JLabel("Title");
+        editPostPanel.add(editPostNameLabel);
 
-            JTextField editPostNameField = new JTextField();
-            editPostPanel.add(editPostNameField);
+        JTextField editPostNameField = new JTextField();
+        editPostPanel.add(editPostNameField);
 
-            JLabel editPostBodyLabel = new JLabel("Body");
-            editPostPanel.add(editPostBodyLabel);
+        JLabel editPostBodyLabel = new JLabel("Body");
+        editPostPanel.add(editPostBodyLabel);
 
-            JTextField editPostBodyField = new JTextField();
-            editPostPanel.add(editPostBodyField);
+        JTextField editPostBodyField = new JTextField();
+        editPostPanel.add(editPostBodyField);
 
-            editPostFrame.add(editPostPanel);
-            editPostFrame.setSize(secondaryScreenWidth, secondaryScreenHeight);
-            editPostFrame.setResizable(false);
+        JButton editPostEditButton = new JButton("Edit");
+        editPostPanel.add(editPostEditButton);
+
+        editPostFrame.add(editPostPanel);
+        editPostFrame.setSize(secondaryScreenWidth, secondaryScreenHeight);
+        editPostFrame.setResizable(false);
         //endregion
 
         //region Delete Post
-            JFrame deletePostFrame = new JFrame();
-            JPanel deletePostPanel = new JPanel();
-            deletePostPanel.setLayout(new BoxLayout(deletePostPanel, BoxLayout.PAGE_AXIS));
+        JFrame deletePostFrame = new JFrame();
+        JPanel deletePostPanel = new JPanel();
+        deletePostPanel.setLayout(new BoxLayout(deletePostPanel, BoxLayout.PAGE_AXIS));
 
-            JLabel deletePostNameLabel = new JLabel("Title");
-            deletePostPanel.add(deletePostNameLabel);
+        JLabel deletePostNameLabel = new JLabel("Title");
+        deletePostPanel.add(deletePostNameLabel);
 
-            JTextField deletePostNameField = new JTextField();
-            deletePostPanel.add(deletePostNameField);
+        JTextField deletePostNameField = new JTextField();
+        deletePostPanel.add(deletePostNameField);
 
-            deletePostFrame.add(deletePostPanel);
-            deletePostFrame.setSize(secondaryScreenWidth, secondaryScreenHeight);
-            deletePostFrame.setResizable(false);
+        JButton deletePostDeleteButton = new JButton("Delete");
+        deletePostPanel.add(deletePostDeleteButton);
+
+        deletePostFrame.add(deletePostPanel);
+        deletePostFrame.setSize(secondaryScreenWidth, secondaryScreenHeight);
+        deletePostFrame.setResizable(false);
         //endregion
 
         JButton loginButton = new JButton("Login");
