@@ -18,6 +18,12 @@ public class Main {
     public static String postsUrl = "https://s4rcckro2g.execute-api.us-east-2.amazonaws.com/production/posts";
 
     public static void main(String[] args) {
+        try {
+            List<Post> test = getPosts();
+            System.out.println(test);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -172,6 +178,23 @@ public class Main {
             con.disconnect();
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    public static List<Post> getPosts() throws IOException, InterruptedException {
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(postsUrl)).build();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        if (response.statusCode() == 200) {
+            Gson gson = new Gson();
+
+            Type listType = new TypeToken<List<Post>>() {}.getType();
+            return gson.fromJson(response.body(), listType);
+        } else {
+            System.out.println("GET request failed: " + response.statusCode());
+            return null;
         }
     }
 }
