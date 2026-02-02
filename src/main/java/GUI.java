@@ -117,6 +117,12 @@ public class GUI {
 
         JButton newPostNewPostButton = new JButton("Post");
         newPostPanel.add(newPostNewPostButton);
+        newPostNewPostButton.addActionListener(_ -> {
+            String title = newPostNameField.getText();
+            String body = newPostBodyField.getText();
+
+            Main.newPost(title, body);
+        });
 
         newPostFrame.add(newPostPanel);
         newPostFrame.setSize(secondaryScreenWidth, secondaryScreenHeight);
@@ -194,6 +200,8 @@ public class GUI {
         buttonPanel.add(deletePostButton);
         deletePostButton.addActionListener(_ -> deletePostFrame.setVisible(true));
 
+        mainPanel.add(messageLabel);
+
         dataTextArea.setEditable(false);
         dataTextArea.setLineWrap(true);
         dataTextArea.setWrapStyleWord(true);
@@ -203,8 +211,6 @@ public class GUI {
         scrollPanel.setLayout(new BorderLayout());
         scrollPanel.add(dataTextScroll, BorderLayout.CENTER);
         mainPanel.add(scrollPanel);
-
-        mainPanel.add(messageLabel);
 
         frame.add(mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

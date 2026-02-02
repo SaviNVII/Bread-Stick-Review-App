@@ -3,9 +3,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
 import java.lang.reflect.Type;
-import java.net.HttpURLConnection;
-import java.net.URI;
-import java.net.URL;
+import java.net.*;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -16,7 +14,8 @@ import java.util.Objects;
 public class Main {
     public static GUI gui = new GUI();
 
-    public static String url = "https://7pivrgulp3.execute-api.us-east-2.amazonaws.com/production/accounts";
+    public static String accountsUrl = "https://7pivrgulp3.execute-api.us-east-2.amazonaws.com/production/accounts";
+    public static String postsUrl = "https://s4rcckro2g.execute-api.us-east-2.amazonaws.com/production/posts";
 
     public static void main(String[] args) {
     }
@@ -30,7 +29,7 @@ public class Main {
     public static List<Account> getAccounts() throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(url)).build();
+                .uri(URI.create(accountsUrl)).build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
         if (response.statusCode() == 200) {
@@ -130,7 +129,7 @@ public class Main {
         String jsonInputString = "{\"username\": \"" + username + "\", \"password\": \"" + hashedPassword + "\"}";
         System.out.println(jsonInputString);
         try {
-            URL obj = new URI(url).toURL();
+            URL obj = new URI(accountsUrl).toURL();
             HttpURLConnection con = (HttpURLConnection) obj.openConnection();
             con.setRequestMethod("POST");
             con.setDoOutput(true);
@@ -145,6 +144,33 @@ public class Main {
             System.out.println("Response Code: " + responseCode);
             con.disconnect();
         } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void newPost(String title, String body) {
+        if (Session.currentUsername == null || Session.currentPassword == null) {
+            gui.displayMessage("Please Login");
+            return;
+        }
+        String jsonInputString = "{\"title\": \"" + title + "\", \"username\": \"" + Session.currentUsername + "\", \"body\": \"" + body + "\"}";
+        System.out.println(jsonInputString);
+        try {
+            URL obj = new URI(postsUrl).toURL();
+            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+            con.setRequestMethod("POST");
+            con.setDoOutput(true);
+            con.setRequestProperty("Content-Type", "application/json");
+
+            try (OutputStream os = con.getOutputStream()) {
+                byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
+                os.write(input, 0, input.length);
+            }
+
+            int responseCode = con.getResponseCode();
+            System.out.println("Response Code: " + responseCode);
+            con.disconnect();
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
