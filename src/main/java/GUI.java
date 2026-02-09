@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class GUI {
     public int screenWidth = 600;
@@ -187,6 +188,13 @@ public class GUI {
 
         JButton refreshButton = new JButton("Refresh");
         buttonPanel.add(refreshButton);
+        refreshButton.addActionListener(_ -> {
+            try {
+                Main.refreshPostView();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        });
 
         JButton newPostButton = new JButton("New Post");
         buttonPanel.add(newPostButton);

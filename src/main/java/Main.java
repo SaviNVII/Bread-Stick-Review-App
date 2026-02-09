@@ -24,12 +24,18 @@ public class Main {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        try {
+            refreshPostView();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
      * Makes a get request to the account database for a list of the accounts.
-     * @return  A list of the accounts.
-     * @throws IOException If there is an input/output error.
+     *
+     * @return A list of the accounts.
+     * @throws IOException          If there is an input/output error.
      * @throws InterruptedException If the request is interrupted.
      */
     public static List<Account> getAccounts() throws IOException, InterruptedException {
@@ -41,7 +47,8 @@ public class Main {
         if (response.statusCode() == 200) {
             Gson gson = new Gson();
 
-            Type listType = new TypeToken<List<Account>>() {}.getType();
+            Type listType = new TypeToken<List<Account>>() {
+            }.getType();
             return gson.fromJson(response.body(), listType);
         } else {
             System.out.println("GET request failed: " + response.statusCode());
@@ -52,15 +59,16 @@ public class Main {
     /**
      * Checks for a username in the database.
      * Calls {@link Main#getAccounts()} to get a list of accounts to check from.
+     *
      * @param username The username to check.
      * @return True if the username is in the database, false if it is not.
-     * @throws IOException If there is an error with input/output.
+     * @throws IOException          If there is an error with input/output.
      * @throws InterruptedException If the request called is interrupted.
      */
     public static boolean checkUsername(String username) throws IOException, InterruptedException {
         List<Account> accounts = getAccounts();
 
-        for(int i = 0; i < Objects.requireNonNull(accounts).size(); i++) {
+        for (int i = 0; i < Objects.requireNonNull(accounts).size(); i++) {
             Account accountAtIndex = accounts.get(i);
             if (username.equals(accountAtIndex.getUsername())) return true;
         }
@@ -71,6 +79,7 @@ public class Main {
      * Checks the password under a given username and compares it to a given password.
      * Calls {@link Main#getAccounts()} to get a list of accounts to check from.
      * Calls {@link Hasher#verifyPassword(String, String)} to check if the password is correct.
+     *
      * @param username The username to check.
      * @param password The password to compare.
      * @return True if the passwords match, false if they don't.
@@ -79,10 +88,10 @@ public class Main {
     public static boolean checkPassword(String username, String password) throws Exception {
         List<Account> accounts = getAccounts();
 
-        for(int i = 0; i < Objects.requireNonNull(accounts).size(); i++) {
+        for (int i = 0; i < Objects.requireNonNull(accounts).size(); i++) {
             Account accountAtIndex = accounts.get(i);
             if (username.equals(accountAtIndex.getUsername())
-            && Hasher.verifyPassword(password, accountAtIndex.getPassword())) {
+                    && Hasher.verifyPassword(password, accountAtIndex.getPassword())) {
                 return true;
             }
         }
@@ -105,6 +114,7 @@ public class Main {
     /**
      * Calls {@link Main#checkPassword(String, String)}
      * and starts a new session if it returns true, does nothing if it returns false.
+     *
      * @param username The username to use.
      * @param password The password to use.
      * @throws Exception If an error occurs in the process.
@@ -122,6 +132,7 @@ public class Main {
      * Calls{@link Main#checkUsername(String)} to check if the username is taken.
      * Calls {@link GUI#displayMessage(String)} checkUsername returns true, and then stops.
      * Makes a post request with the given username and password to the accounts database.
+     *
      * @param username The username to use.
      * @param password The password to use.
      * @throws Exception If an error occurs in the process.
@@ -190,11 +201,29 @@ public class Main {
         if (response.statusCode() == 200) {
             Gson gson = new Gson();
 
-            Type listType = new TypeToken<List<Post>>() {}.getType();
+            Type listType = new TypeToken<List<Post>>() {
+            }.getType();
             return gson.fromJson(response.body(), listType);
         } else {
             System.out.println("GET request failed: " + response.statusCode());
             return null;
         }
+    }
+
+    public static void refreshPostView() throws IOException, InterruptedException {
+        List<Post> posts = getPosts();
+        StringBuilder sb = new StringBuilder();
+
+        assert posts != null;
+        for (Post post : posts) {
+            sb.append("Title: ").append(post.getTitle()).append("\n")
+                    .append("User: ").append(post.getUsername()).append("\n")
+                    .append(post.getBody()).append("\n")
+                    .append("Id: ").append(post.getId()).append("\n")
+                    .append("\n");
+        }
+        String text = String.valueOf(sb);
+
+        gui.displayText(text);
     }
 }
