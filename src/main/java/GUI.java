@@ -160,14 +160,18 @@ public class GUI {
         JPanel deletePostPanel = new JPanel();
         deletePostPanel.setLayout(new BoxLayout(deletePostPanel, BoxLayout.PAGE_AXIS));
 
-        JLabel deletePostNameLabel = new JLabel("Title");
-        deletePostPanel.add(deletePostNameLabel);
+        JLabel deletePostIdLabel = new JLabel("Id");
+        deletePostPanel.add(deletePostIdLabel);
 
-        JTextField deletePostNameField = new JTextField();
-        deletePostPanel.add(deletePostNameField);
+        JTextField deletePostIdField = new JTextField();
+        deletePostPanel.add(deletePostIdField);
 
         JButton deletePostDeleteButton = new JButton("Delete");
         deletePostPanel.add(deletePostDeleteButton);
+        deletePostDeleteButton.addActionListener(_ -> {
+            String id = deletePostIdField.getText();
+            Main.deletePost(id);
+        });
 
         deletePostFrame.add(deletePostPanel);
         deletePostFrame.setSize(secondaryScreenWidth, secondaryScreenHeight);

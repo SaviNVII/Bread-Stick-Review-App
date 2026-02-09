@@ -217,7 +217,27 @@ public class Main {
                     .append("\n");
         }
         String text = String.valueOf(sb);
-
         gui.displayText(text);
+    }
+
+    public static void deletePost(String id) {
+        String jsonInputString = "{\"id\":\"" + id + "\"}";
+        try {
+            URL obj = new URI(postsUrl).toURL();
+            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+            con.setRequestMethod("DELETE");
+            con.setDoOutput(true);
+            con.setRequestProperty("Content-Type", "application/json");
+
+            try (OutputStream os = con.getOutputStream()) {
+                byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
+                os.write(input, 0, input.length);
+            }
+
+            int responseCode = con.getResponseCode();
+            System.out.println("Response Code: " + responseCode);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
