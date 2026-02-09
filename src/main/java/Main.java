@@ -19,12 +19,6 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-            List<Post> test = getPosts();
-            System.out.println(test);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        try {
             refreshPostView();
         } catch (Exception e) {
             System.out.println(e.getMessage());
