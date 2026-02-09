@@ -221,6 +221,10 @@ public class Main {
     }
 
     public static void deletePost(String id) {
+        if (Session.currentUsername == null || Session.currentPassword == null) {
+            gui.displayMessage("Please Login");
+            return;
+        }
         String jsonInputString = "{\"id\":\"" + id + "\"}";
         try {
             URL obj = new URI(postsUrl).toURL();
