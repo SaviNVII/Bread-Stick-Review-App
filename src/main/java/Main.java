@@ -204,6 +204,18 @@ public class Main {
         }
     }
 
+    public static boolean checkPost(String id) throws IOException, InterruptedException {
+        List<Post> posts = getPosts();
+
+        assert posts != null;
+        for (Post post : posts) {
+            if (id.equals(post.getId()) && Session.currentUsername.equals(post.getUsername())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static void refreshPostView() throws IOException, InterruptedException {
         List<Post> posts = getPosts();
         StringBuilder sb = new StringBuilder();
@@ -225,6 +237,15 @@ public class Main {
             gui.displayMessage("Please Login");
             return;
         }
+        try {
+            if (!checkPost(id)) {
+                gui.displayMessage("Invalid post id");
+                return;
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
         String jsonInputString = "{\"id\":\"" + id + "\"}";
         try {
             URL obj = new URI(postsUrl).toURL();
@@ -243,5 +264,9 @@ public class Main {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public static void editPost(String id, String newTitle, String newBody) {
+
     }
 }

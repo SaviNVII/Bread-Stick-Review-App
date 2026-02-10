@@ -135,13 +135,15 @@ public class GUI {
         JPanel editPostPanel = new JPanel();
         editPostPanel.setLayout(new BoxLayout(editPostPanel, BoxLayout.PAGE_AXIS));
 
-        JLabel editPostNameLabel = new JLabel("Title");
+        JLabel editPostIdLabel = new JLabel("Id");
+
+        JLabel editPostNameLabel = new JLabel("New Title");
         editPostPanel.add(editPostNameLabel);
 
         JTextField editPostNameField = new JTextField();
         editPostPanel.add(editPostNameField);
 
-        JLabel editPostBodyLabel = new JLabel("Body");
+        JLabel editPostBodyLabel = new JLabel("New Body");
         editPostPanel.add(editPostBodyLabel);
 
         JTextField editPostBodyField = new JTextField();
