@@ -23,6 +23,7 @@ public class Main {
     public static String postsUrl = "https://s4rcckro2g.execute-api.us-east-2.amazonaws.com/production/posts";
 
     public static void main(String[] args) {
+        //Run refresh post once
         try {
             refreshPostView();
         } catch (Exception e) {
