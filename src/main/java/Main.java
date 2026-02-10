@@ -10,6 +10,11 @@ import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Objects;
+import org.apache.http.client.methods.HttpPatch;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 
 public class Main {
     public static GUI gui = new GUI();
@@ -267,6 +272,30 @@ public class Main {
     }
 
     public static void editPost(String id, String newTitle, String newBody) {
+        if (Session.currentUsername == null || Session.currentPassword == null) {
+            gui.displayMessage("Please Login");
+            return;
+        }
+        try {
+            if (!checkPost(id)) {
+                gui.displayMessage("Invalid post id");
+                return;
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
+        String jsonInputString = "{\"id\": \"" + id + "\", \"title\": \"" + newTitle + "\", \"body\": \"" + newBody + "\"}";
+
+        try (CloseableHttpClient httpClient = HttpClients.createDefault()){
+            HttpPatch patch = new HttpPatch(postsUrl);
+            patch.setHeader("Content-Type", "application/json");
+            patch.setEntity(new StringEntity(jsonInputString));
+
+            String response = EntityUtils.toString(httpClient.execute(patch).getEntity());
+            System.out.println("Response: " + response);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

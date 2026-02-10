@@ -136,6 +136,10 @@ public class GUI {
         editPostPanel.setLayout(new BoxLayout(editPostPanel, BoxLayout.PAGE_AXIS));
 
         JLabel editPostIdLabel = new JLabel("Id");
+        editPostPanel.add(editPostIdLabel);
+
+        JTextField editPostIdField = new JTextField();
+        editPostPanel.add(editPostIdField);
 
         JLabel editPostNameLabel = new JLabel("New Title");
         editPostPanel.add(editPostNameLabel);
@@ -151,9 +155,15 @@ public class GUI {
 
         JButton editPostEditButton = new JButton("Edit");
         editPostPanel.add(editPostEditButton);
+        editPostEditButton.addActionListener(_ -> {
+            String id = editPostIdField.getText();
+            String newTitle = editPostNameField.getText();
+            String newBody = editPostBodyField.getText();
+            Main.editPost(id, newTitle, newBody);
+        });
 
         editPostFrame.add(editPostPanel);
-        editPostFrame.setSize(secondaryScreenWidth, secondaryScreenHeight);
+        editPostFrame.setSize(secondaryScreenWidth, secondaryScreenHeight + 50);
         editPostFrame.setResizable(false);
         //endregion
 
