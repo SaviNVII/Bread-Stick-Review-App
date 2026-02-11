@@ -165,6 +165,11 @@ public class Main {
         }
     }
 
+    /**
+     * Checks if the user is logged in. Creates a new post in the database under the user that is currently logged in.
+     * @param title The title of the post.
+     * @param body The body of the post.
+     */
     public static void newPost(String title, String body) {
         if (Session.currentUsername == null || Session.currentPassword == null) {
             gui.displayMessage("Please Login");
@@ -192,6 +197,12 @@ public class Main {
         }
     }
 
+    /**
+     * Gets a list of the posts in the database.
+     * @return A list of posts.
+     * @throws IOException If there is an error with input/output.
+     * @throws InterruptedException If the get request is interrupted.
+     */
     public static List<Post> getPosts() throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
@@ -210,6 +221,14 @@ public class Main {
         }
     }
 
+    /**
+     * Checks if a specified post matches the current user.
+     * Calls {@link #getPosts()} to get a list of the posts.
+     * @param id The post ID to check.
+     * @return True if the post matches the current user, false if it doesn't
+     * @throws IOException If there is an error with input/output.
+     * @throws InterruptedException If the get request is interrupted.
+     */
     public static boolean checkPost(String id) throws IOException, InterruptedException {
         List<Post> posts = getPosts();
 
@@ -222,6 +241,12 @@ public class Main {
         return false;
     }
 
+    /**
+     * Refreshes the gui to view new posts.
+     * Calls {@link #getPosts()} to get a list of the posts.
+     * @throws IOException If there is an error with input/output.
+     * @throws InterruptedException If the get request is interrupted.
+     */
     public static void refreshPostView() throws IOException, InterruptedException {
         List<Post> posts = getPosts();
         StringBuilder sb = new StringBuilder();
@@ -238,6 +263,11 @@ public class Main {
         gui.displayText(text);
     }
 
+    /**
+     * Checks if the user is logged in. Deletes a post from the database if it is under the current user.
+     * Calls {@link #checkPost(String)} to check if the given post is under the current user.
+     * @param id ID of the post to delete.
+     */
     public static void deletePost(String id) {
         if (Session.currentUsername == null || Session.currentPassword == null) {
             gui.displayMessage("Please Login");
@@ -272,6 +302,12 @@ public class Main {
         }
     }
 
+    /**
+     * Checks if the user is logged in. Edits a post in the database if it is under the current user.
+     * @param id ID of the post to edit.
+     * @param newTitle Updated title.
+     * @param newBody Updated body.
+     */
     public static void editPost(String id, String newTitle, String newBody) {
         if (Session.currentUsername == null || Session.currentPassword == null) {
             gui.displayMessage("Please Login");

@@ -243,10 +243,18 @@ public class GUI {
         //endregion
     }
 
+    /**
+     * Displays a message on the screen (please log in, etc...).
+     * @param message The message to display.
+     */
     public void displayMessage(String message) {
         messageLabel.setText(message);
     }
 
+    /**
+     * Displays text on the screen (used for the posts).
+     * @param text The text to display.
+     */
     public void displayText(String text) {
         dataTextArea.setText(text);
         dataTextArea.revalidate();

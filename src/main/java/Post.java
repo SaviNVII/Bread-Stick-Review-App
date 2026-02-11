@@ -1,4 +1,5 @@
 public class Post {
+    //Post class to store JSON data
     private final String id;
     private final String title;
     private final String username;
