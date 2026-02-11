@@ -33,7 +33,6 @@ public class Main {
 
     /**
      * Makes a get request to the account database for a list of the accounts.
-     *
      * @return A list of the accounts.
      * @throws IOException          If there is an input/output error.
      * @throws InterruptedException If the request is interrupted.
@@ -59,7 +58,6 @@ public class Main {
     /**
      * Checks for a username in the database.
      * Calls {@link Main#getAccounts()} to get a list of accounts to check from.
-     *
      * @param username The username to check.
      * @return True if the username is in the database, false if it is not.
      * @throws IOException          If there is an error with input/output.
@@ -79,7 +77,6 @@ public class Main {
      * Checks the password under a given username and compares it to a given password.
      * Calls {@link Main#getAccounts()} to get a list of accounts to check from.
      * Calls {@link Hasher#verifyPassword(String, String)} to check if the password is correct.
-     *
      * @param username The username to check.
      * @param password The password to compare.
      * @return True if the passwords match, false if they don't.
@@ -114,7 +111,6 @@ public class Main {
     /**
      * Calls {@link Main#checkPassword(String, String)}
      * and starts a new session if it returns true, does nothing if it returns false.
-     *
      * @param username The username to use.
      * @param password The password to use.
      * @throws Exception If an error occurs in the process.
@@ -132,7 +128,6 @@ public class Main {
      * Calls{@link Main#checkUsername(String)} to check if the username is taken.
      * Calls {@link GUI#displayMessage(String)} checkUsername returns true, and then stops.
      * Makes a post request with the given username and password to the accounts database.
-     *
      * @param username The username to use.
      * @param password The password to use.
      * @throws Exception If an error occurs in the process.
